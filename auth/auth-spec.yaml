@@ -2,10 +2,11 @@ apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpec
 metadata: 
   name: coolstore-api-auth-policy
-  namespace: store
+  namespace: bookinfo
 spec: 
   jwts: 
     - issuer: http://keycloak.infra:8080/auth/realms/coolstore
       jwks_uri: http://keycloak.infra:8080/auth/realms/coolstore/protocol/openid-connect/certs
       audiences: 
-      - store
+      - productpage
+
