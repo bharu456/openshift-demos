@@ -2,11 +2,11 @@ apiVersion: config.istio.io/v1alpha2
 kind: EndUserAuthenticationPolicySpecBinding
 metadata:
   name: coolstore-api-auth-policy-binding
-  namespace: store
+  namespace: bookinfo
 spec:
   policies:
     - name: coolstore-api-auth-policy
-      namespace: store
+      namespace: bookinfo
   services:
-    - name: products
-      namespace: store
+    - name: details
+      namespace: bookinfo
