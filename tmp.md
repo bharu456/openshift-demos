@@ -27,6 +27,13 @@ oc adm policy add-scc-to-user privileged -z default -n infra
 ```
 
 
+```sh
+oc delete svc products 
+oc create service clusterip products --tcp=8080:8080
+```
+
+
+
 export token=$(curl -s -X POST 'http://keycloak:8080/auth/realms/istio/protocol/openid-connect/token' -H "Content-Type: application/x-www-form-urlencoded" -d 'username=demo&password=test&grant_type=password&client_id=cars-web' | jq -r .access_token)
 
 
