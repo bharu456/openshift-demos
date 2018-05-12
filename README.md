@@ -17,14 +17,8 @@
 
 
 ## Apply necessary permissions 
-
-`oc adm policy add-cluster-role-to-user cluster-admin  -z default`   
-
-`oc adm policy add-cluster-role-to-user cluster-admin -z istio-pilot-service-account`    
-`oc adm policy add-cluster-role-to-user cluster-admin -z istio-ingress-service-account`    
-`oc adm policy add-cluster-role-to-user cluster-admin -z istio-egress-service-account`  
-`oc adm policy add-cluster-role-to-user cluster-admin -z istio-mixer-service-account`
-
+`export ISTIO_HOME=~/Downloads/istio-0.7.1`
+`oc create -f ${ISTIO_HOME}/install/kubernetes/istio.yaml`
 
 `oc adm policy add-scc-to-user anyuid  -z istio-ingress-service-account`  
 `oc adm policy add-scc-to-user privileged -z istio-ingress-service-account`   
