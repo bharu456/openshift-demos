@@ -1,31 +1,16 @@
 
 
 
+```sh
+kubectl apply -f <(istioctl kube-inject -f <(kubectl apply -f http://central.maven.org/maven2/io/fabric8/devops/apps/keycloak/2.2.327/keycloak-2.2.327-kubernetes.yml --dry-run -o yaml)) -n infra
+```
+```sh
+oc adm policy add-scc-to-user privileged -z default -n infra
+```
 
-kubectl apply -f <(istioctl kube-inject -f <(kubectl run --image=debianmaster/go-welcome cars-api -l app=cars-api,version=v1  -o yaml --dry-run))
-
-kubectl apply -f <(istioctl kube-inject -f <(kubectl run --image=debianmaster/nodejs-welcome cars-web -l app=cars-web,version=v1  -o yaml --dry-run))
-
-kubectl apply -f <(istioctl kube-inject -f <(kubectl apply -f http://central.maven.org/maven2/io/fabric8/devops/apps/keycloak/2.2.327/keycloak-2.2.327-kubernetes.yml --dry-run -o yaml))
-
-kubectl apply -f <(istioctl kube-inject -f <(kubectl run --image=raesene/alpine-nettools tools -l app=tools,version=v1  -o yaml --dry-run))
-
-
-
-
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: keycloak
-  labels:
-    app: keycloak
-spec:
-  ports:
-  - port: 8080
-    name: http
-  selector:
-    app: keycloak
+```sh
+kubectl create service clusterip keycloak --tcp=8080:8080
+```
 
 
 apiVersion: v1
