@@ -52,3 +52,8 @@ sudo chmod u+x /usr/bin/istioctl
 `oc exec $GRAFANA -- curl -o /dev/null -s -w "%{http_code}\n" http://istio-ingress/productpage`   
 `open http://$(oc get routes servicegraph -o jsonpath={.spec.host})/dotviz` 
 
+
+
+```sh
+oc adm policy add-cluster-role-to-user cluster-admin admin
+``
