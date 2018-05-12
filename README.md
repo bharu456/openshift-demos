@@ -7,7 +7,14 @@
 `oc project myproject`  
 `oc adm policy add-scc-to-user anyuid  -z default`  
 `oc adm policy add-scc-to-user privileged -z default`  
-
+```sh
+oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z istio-egress-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z istio-pilot-service-account -n istio-system
+oc adm policy add-scc-to-user anyuid -z default -n istio-system
+oc adm policy add-scc-to-user anyuid -z prometheus -n istio-system
+oc adm policy add-scc-to-user anyuid -z grafana -n istio-system
+```
 
 ## Install Istio Service Mesh
 `export ISTIO_HOME=~/Downloads/istio-0.7.1`
