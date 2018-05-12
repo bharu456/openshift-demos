@@ -19,16 +19,14 @@
 ## Apply necessary permissions 
 `export ISTIO_HOME=~/Downloads/istio-0.7.1`
 `oc create -f ${ISTIO_HOME}/install/kubernetes/istio.yaml`
-
-`oc adm policy add-scc-to-user anyuid  -z istio-ingress-service-account`  
-`oc adm policy add-scc-to-user privileged -z istio-ingress-service-account`   
-
-`oc adm policy add-scc-to-user anyuid -z istio-egress-service-account`    
-`oc adm policy add-scc-to-user privileged -z istio-egress-service-account`   
-
-`oc adm policy add-scc-to-user anyuid  -z istio-pilot-service-account`  
-`oc adm policy add-scc-to-user privileged -z istio-pilot-service-account` 
-
+```sh
+oc create -f ${ISTIO_HOME}/install/kubernetes/addons/prometheus.yaml
+oc create -f ${ISTIO_HOME}/install/kubernetes/addons/grafana.yaml
+oc create -f ${ISTIO_HOME}/install/kubernetes/addons/servicegraph.yaml
+oc expose svc grafana -n istio-system
+oc expose svc servicegraph -n istio-system
+oc expose svc prometheus -n istio-system
+```
 
 ```sh
 oc create -f install/kubernetes/istio-rbac-beta.yaml
