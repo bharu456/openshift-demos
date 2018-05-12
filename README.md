@@ -10,15 +10,11 @@
 
 
 ## Install Istio Service Mesh
-`git clone https://github.com/istio/istio`   
-`cd istio && git checkout 103b3dd4c74a03d226ca5cf1b1ed9951ab8707be`      
-
-
-
-
-## Apply necessary permissions 
 `export ISTIO_HOME=~/Downloads/istio-0.7.1`
-`oc create -f ${ISTIO_HOME}/install/kubernetes/istio.yaml`
+`oc create -f ${ISTIO_HOME}/install/kubernetes/istio.yaml`   
+
+
+## Install addons 
 ```sh
 oc create -f ${ISTIO_HOME}/install/kubernetes/addons/prometheus.yaml
 oc create -f ${ISTIO_HOME}/install/kubernetes/addons/grafana.yaml
@@ -28,23 +24,10 @@ oc expose svc servicegraph -n istio-system
 oc expose svc prometheus -n istio-system
 ```
 
-```sh
-oc create -f install/kubernetes/istio-rbac-beta.yaml
-oc apply -f install/kubernetes/istio.yaml
-```  
-
-
-
-## Install addons 
-`oc apply -f install/kubernetes/addons/prometheus.yaml`  
-`oc apply -f install/kubernetes/addons/grafana.yaml`  
-`oc apply -f install/kubernetes/addons/servicegraph.yaml`  
-
-
 
 ## Deploy sample app
 ### Install istioctl first and add to path  
-`https://github.com/istio/istio/releases/tag/0.2.1`  
+`~/Downloads/istio-0.7.1`  
 
 ### For instance on linux
 ```
