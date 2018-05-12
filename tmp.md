@@ -3,6 +3,7 @@
 oc new-project bi
 oc new-project store
 oc new-project infra
+```
 
 ```sh
 oc project infra
@@ -205,12 +206,12 @@ kubectl apply -f <(istioctl kube-inject -f <(kubectl run --image=debianmaster/st
 
 
 
-debianmaster/store-products
 
 
 
 
-
+```sh
+oc project store
 istioctl kube-inject -f <(oc new-app debianmaster/store-fe --name=store -l app=store,version=v1 --dry-run -o yaml) | oc apply -f-
 
 
@@ -234,7 +235,27 @@ mongo_url='mongodb://app_user:password@productsdb/store'
 oc env dc products-recco MONGO_USER=app_user MONGO_PASSWORD=password MONGO_SERVER=productsdb MONGO_PORT=27017 MONGO_DB=store \
 mongo_url='mongodb://app_user:password@productsdb/store'
 
+oc expose svc store
+```
 
+
+```sh
+cjonagam-OSX:~ cjonagam$ oc rsh productsdb-1-5fw94
+sh-4.2$ mongo
+MongoDB shell version v3.4.9
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.4.9
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	http://docs.mongodb.org/
+Questions? Try the support group
+	http://groups.google.com/group/mongodb-user
+> use store
+switched to db store
+> db.auth('app_user','password')
+```
+```
 var categories = [
 		{id:1,CatName:"Wireless",SubCats:[{id:1,name:"RF"},{id:2,name:"XBEE"},{id:3,name:"Wifi"},{id:4,name:"Bluetooth"}]},
 		{id:2,CatName:"Development Boards",SubCats:[{id:5,name:"Arduino"},{id:6,name:"ARM"},{id:7,name:"8051"},{id:8,name:"AVR"}]},
@@ -247,8 +268,14 @@ var products=[ {product_id:'cable_1',name:"Wire",title:"Wire",img:'img/storeImag
 db.Categories.insert(categories)
 
 db.Products.insert(products)
+```
+> Remove this selector from products.
 
-
+```sh
+    deploymentconfig: products
+    version: v1
+```    
+    
 
 oc delete svc products 
 oc create service clusterip products --tcp=8080:8080
